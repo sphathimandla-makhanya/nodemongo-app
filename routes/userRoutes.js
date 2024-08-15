@@ -7,7 +7,7 @@ const router = express.Router();
 // @route   POST /api/users
 // @access  Public
 router.post('/', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, surname, phoneNo, email, password } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
@@ -18,6 +18,8 @@ router.post('/', async (req, res) => {
 
     const user = new User({
       name,
+      surname,
+      phoneNo,
       email,
       password,
     });
@@ -62,13 +64,15 @@ router.get('/:id', async (req, res) => {
 // @route   PUT /api/users/:id
 // @access  Public
 router.put('/:id', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, surname, phoneNo, email, password } = req.body;
 
   try {
     const user = await User.findById(req.params.id);
 
     if (user) {
       user.name = name || user.name;
+      user.surname = surname || user.surname;
+      user.phoneNo = phoneNo || user.phoneNo;
       user.email = email || user.email;
 
       if (password) {
