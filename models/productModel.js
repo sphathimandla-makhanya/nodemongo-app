@@ -18,6 +18,7 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    imageUrl: { type: String, required: true },// Add this line for the image URL
   },
   {
     timestamps: true, // Automatically add `createdAt` and `updatedAt` fields

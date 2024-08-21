@@ -7,13 +7,14 @@ const router = express.Router();
 // @route   POST /api/products
 // @access  Public
 router.post('/', async (req, res) => {
-  const { name, description, price, countInStock } = req.body;
+  const { name, description, price, countInStock, imageUrl } = req.body;
 
   const product = new Product({
     name,
     description,
     price,
     countInStock,
+    imageUrl,
   });
 
   try {
@@ -57,7 +58,7 @@ router.get('/:id', async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Public
 router.put('/:id', async (req, res) => {
-  const { name, description, price, countInStock } = req.body;
+  const { name, description, price, countInStock, imageUrl } = req.body;
 
   try {
     const product = await Product.findById(req.params.id);
@@ -67,6 +68,7 @@ router.put('/:id', async (req, res) => {
       product.description = description || product.description;
       product.price = price || product.price;
       product.countInStock = countInStock || product.countInStock;
+      product.imageUrl = imageUrl || product.imageUrl;
 
       const updatedProduct = await product.save();
       res.json(updatedProduct);
